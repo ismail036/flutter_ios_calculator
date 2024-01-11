@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +35,7 @@ class MyBody extends StatefulWidget {
   State<MyBody> createState() => _MyBodyState();
 }
 
-String number =  " ";
+String number =  "0";
 double result = 0.0;
 String numberm = " ";
 
@@ -39,16 +44,16 @@ String son = "+";
 class _MyBodyState extends State<MyBody> {
   @override
   Widget build(BuildContext context) {
-    double buttonSize = 70.0;
+    double buttonSize = 85.0;
 
 
     return Container(
-      color: Colors.black,
+      color: Color(0xFF1C1C1C),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 12.0),
+            padding: EdgeInsets.only(right: 16.0),
             child: Align(
               alignment: Alignment.bottomRight,
               child: FittedBox(
@@ -65,7 +70,7 @@ class _MyBodyState extends State<MyBody> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.fromLTRB(14.0, 7.0, 14.0, 7.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -83,9 +88,11 @@ class _MyBodyState extends State<MyBody> {
                         last = "";
                       });
                     },
-                    child: Text(setACorC()),
+                    child: Text(setACorC(),
+                      style: TextStyle(color: Color(0xFF1C1C1C),fontSize: 30,fontWeight: FontWeight.w500),
+                    ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFD4D4D2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -93,10 +100,16 @@ class _MyBodyState extends State<MyBody> {
                   ),
                 ),
                 TextButton(
-                  onPressed: (){},
-                  child: Text("+/-"),
+                  onPressed: (){
+                    setState(() {
+                      addNumber("+/-");
+                    });
+                  },
+                  child: Text("+/-",
+                    style: TextStyle(color: Color(0xFF1C1C1C),fontSize: 30,fontWeight: FontWeight.w500),
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFD4D4D2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -104,10 +117,16 @@ class _MyBodyState extends State<MyBody> {
                   ),
                 ),
                 TextButton(
-                  onPressed: (){},
-                  child: Text("%"),
+                  onPressed: (){
+                    setState(() {
+                      calculate("%");
+                    });
+                  },
+                  child: Text("%",
+                    style: TextStyle(color: Color(0xFF1C1C1C),fontSize: 30,fontWeight: FontWeight.w500),
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFD4D4D2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -122,12 +141,10 @@ class _MyBodyState extends State<MyBody> {
                   },
                   child: Text(
                       "÷",
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
+                    style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w500),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFFF9500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -138,7 +155,7 @@ class _MyBodyState extends State<MyBody> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding:  EdgeInsets.fromLTRB(14.0, 7.0, 14.0, 7.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -148,9 +165,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("7");
                     });
                   },
-                  child: Text("7"),
+                  child: Text("7",
+                    style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -163,9 +182,12 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("8");
                     });
                   },
-                  child: Text("8"),
+                  child: Text(
+                    "8",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -178,9 +200,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("9");
                     });
                   },
-                  child: Text("9"),
+                  child: Text("9",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -195,12 +219,10 @@ class _MyBodyState extends State<MyBody> {
                   },
                   child: Text(
                     "x",
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
+                    style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFFF9500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -211,7 +233,7 @@ class _MyBodyState extends State<MyBody> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.fromLTRB(14.0, 7.0, 14.0, 7.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -221,9 +243,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("4");
                     });
                   },
-                  child: Text("4"),
+                  child: Text("4",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -236,9 +260,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("5");
                     });
                   },
-                  child: Text("5"),
+                  child: Text("5",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -251,9 +277,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("6");
                     });
                   },
-                  child: Text("6"),
+                  child: Text("6",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -268,12 +296,10 @@ class _MyBodyState extends State<MyBody> {
                   },
                   child: Text(
                     "-",
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
+                    style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFFF9500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -284,7 +310,7 @@ class _MyBodyState extends State<MyBody> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding:  EdgeInsets.fromLTRB(14.0, 7.0, 14.0, 7.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -294,9 +320,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("1");
                     });
                   },
-                  child: Text("1"),
+                  child: Text("1",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -309,9 +337,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("2");
                     });
                   },
-                  child: Text("2"),
+                  child: Text("2",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -324,9 +354,11 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("3");
                     });
                   },
-                  child: Text("3"),
+                  child: Text("3",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -341,12 +373,10 @@ class _MyBodyState extends State<MyBody> {
                   },
                   child: Text(
                     "+",
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
+                    style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFFF9500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -357,7 +387,7 @@ class _MyBodyState extends State<MyBody> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.fromLTRB(14.0, 7.0, 14.0, 7.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -367,24 +397,28 @@ class _MyBodyState extends State<MyBody> {
                       addNumber("0");
                     });
                   },
-                  child: Text("0"),
+                  child: Text("0",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400),
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
-                    fixedSize: Size(buttonSize*2+40 , buttonSize),
+                    fixedSize: Size(buttonSize*2+15 , buttonSize),
                   ),
                 ),
                 TextButton(
                   onPressed: (){
                     setState(() {
-                      addNumber(",");
+                      addComma();
                     });
                   },
-                  child: Text(","),
+                  child: Text(",",
+                      style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400)
+                  ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFF505050),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
@@ -392,26 +426,33 @@ class _MyBodyState extends State<MyBody> {
                   ),
                 ),
                 TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    setState(() {
+                      calculate("=");
+                    });
+                  },
                   child: Text(
                     "=",
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
+                    style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xFFFF9500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(buttonSize / 2),
                     ),
                     fixedSize: Size(buttonSize, buttonSize),
                   ),
                 ),
+
               ],
             ),
           ),
+          SizedBox(
+            height: 30,
+          )
         ],
       ),
+
     );
   }
 }
@@ -435,78 +476,27 @@ void addNumber(String n){
     number = "";
     k = false;
   }
-    if(number == "" && n == "0"){
-       number += "";
-    }else{
+  if(n == "+/-"){
+    if(double.parse(number) > 0){
+      number = "-" + number;
+    }else if(double.parse(number) < 0){
+      number = number.substring(1);
+    }
+  }else{
+    if(number == "0" && n == "0"){
+      number += "";
+    }else if(number == "0" && n != "0"){
+      number = "";
+      number += n;
+    } else{
       number += n;
     }
+  }
 }
 
-void sum(){
-  number = number.replaceAll(".", "");
-  number = number.replaceAll(",", ".");
-  if(son == "+"){
-    result += double.parse(number);
-  }
-  print(result);
-  number = result.toString().replaceAll(".0", "");
-  k = true;
-}
-void subtract(){
 
-  if(minus == false){
-    number = number.replaceAll(".", "");
-    number = number.replaceAll(",", ".");
-    result += double.parse(number);
-    print(result);
-    number = result.toString().replaceAll(".0", "");
-    k = true;
-    minus = true;
-  }else{
-    number = number.replaceAll(".", "");
-    number = number.replaceAll(",", ".");
-    result -= double.parse(number);
-    print(result);
-    number = result.toString().replaceAll(".0", "");
-    k = true;
-  }
-}
-void multiply(){
-  if(multip == false){
-    number = number.replaceAll(".", "");
-    number = number.replaceAll(",", ".");
-    result += double.parse(number);
-    print(result);
-    number = result.toString().replaceAll(".0", "");
-    k = true;
-    multip = true;
-  }else{
-    number = number.replaceAll(".", "");
-    number = number.replaceAll(",", ".");
-    result *= double.parse(number);
-    print(result);
-    number = result.toString().replaceAll(".0", "");
-    k = true;
-  }
-}
-void divide(){
-  if(result == 0 && divid == false){
-    number = number.replaceAll(".", "");
-    number = number.replaceAll(",", ".");
-    result += double.parse(number);
-    print(result);
-    number = result.toString().replaceAll(".0", "");
-    k = true;
-    divid = true;
-  }else{
-    number = number.replaceAll(".", "");
-    number = number.replaceAll(",", ".");
-    result /= double.parse(number);
-    print(result);
-    number = result.toString().replaceAll(".0", "");
-    k = true;
-  }
-}
+
+
 
 bool operationPresed = false;
 
@@ -519,50 +509,61 @@ void calculate(String islem) {
   if (last == "") {
     last = islem;
     number = number.replaceAll(".", "");
+    number = number.replaceAll(",", ".");
     result = double.parse(number);
     print(result);
+    operationPresed = true;
     }
-  else if(operationPresed == true) {
+  else if(islem != "=" && operationPresed == true) {
     last = islem;
   }else{
+    number = number.replaceAll(".", "");
+    number = number.replaceAll(",", ".");
     switch (last){
       case "+":
-        number = number.replaceAll(".", "");
-        number = number.replaceAll(",", ".");
         result += double.parse(number);
-        print(result);
-        last = islem;
-        number = result.toString().replaceAll(".0", "");
         break;
       case "-":
-        number = number.replaceAll(".", "");
-        number = number.replaceAll(",", ".");
-        print(result);
         result -= double.parse(number);
-        print(result);
-        last = islem;
-        number = result.toString().replaceAll(".0", "");
         break;
       case "x":
-        number = number.replaceAll(".", "");
-        number = number.replaceAll(",", ".");
-        print(result);
         result *= double.parse(number);
-        print(result);
-        last = islem;
-        number = result.toString().replaceAll(".0", "");
         break;
       case "/":
-        number = number.replaceAll(".", "");
-        number = number.replaceAll(",", ".");
-        print(result);
         result /= double.parse(number);
-        print(result);
-        last = islem;
-        number = result.toString().replaceAll(".0", "");
         break;
-
+      case "%":
+        result *= double.parse(number)/100;
+        break;
+    }
+    result = result.toPrecision(5);
+    if(result > 1){
+      number = result.toString().replaceAll(".0", "");
+    }else{
+      number = result.toString();
     }
     operationPresed = true;
   }
+  if(islem != "="){
+    last = islem;
+  }
+}
+
+void  addComma(){
+  if(k==true){
+    number = "";
+    k = false;
+  }
+  if(number.contains(",") == false){
+    if(number == ""){
+      number = "0,";
+    }else{
+      number += ",";
+    }
+  }
+}
+
+
+extension Ex on double {
+  double toPrecision(int n) => double.parse(toStringAsFixed(n));
 }
